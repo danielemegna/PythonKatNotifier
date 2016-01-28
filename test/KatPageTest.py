@@ -1,13 +1,15 @@
 import unittest
+from bs4 import BeautifulSoup
 
 class KatPage:
 
   def __init__(self, html):
     self.html = html
+    self.soup = BeautifulSoup(html, 'html.parser')
     return
 
   def movies(self):
-    return ["bar", "foo", "asd", "bhu", "leg"]
+    return self.soup.find_all("a", class_="cellMainLink")
 
 class KatPageTest(unittest.TestCase):
 
