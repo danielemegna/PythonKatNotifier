@@ -9,15 +9,25 @@ class KatPage:
     return
 
   def movies(self):
-    return self.soup.find_all("a", class_="cellMainLink")
+    movies = self.soup.find_all("a", class_="cellMainLink")
+    return movies
+
 
 class KatPageTest(unittest.TestCase):
 
   def test_recognizeCorrectlyNumberOfMovies(self):
     html = self.read_file('test/katPage.html')
-    page = KatPage(html) 
+    page = KatPage(html)
     movies = page.movies()
     self.assertEqual(len(movies), 12)
+
+  def test_readCorrectlyMovieTitles(self):
+    html = self.read_file('test/katPage.html')
+    page = KatPage(html)
+    movies = page.movies()
+    self.assertEqual(movies[0], # todo -> this will be 'movies[0].title'
+      "Son Of A Gun (2014) BRrip XviD - Italian English Ac3 5 1 Sub ita eng MIRCrew"
+    );
 
   def read_file(self, path):
     file = open(path, 'r')
