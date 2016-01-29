@@ -9,7 +9,13 @@ class KatPage:
     return
 
   def movies(self):
-    movies = self.soup.find_all("a", class_="cellMainLink")
+    found = self.soup.find_all("a", class_="cellMainLink")
+
+    movies = []
+    for movie in found:
+      movie.strong.unwrap()
+      movies.append(''.join(movie.contents))
+
     return movies
 
 
