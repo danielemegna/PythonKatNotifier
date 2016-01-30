@@ -4,27 +4,38 @@ from bs4 import BeautifulSoup
 class KatPage:
 
   def __init__(self, html):
-    self.html = html
     self.soup = BeautifulSoup(html, 'html.parser')
     return
 
   def movies(self):
-    links = self.__extract_movie_links()
-    self.__sanitize_movie_links(links)
-    return self.__movie_links_to_titles_array(links)
+    tags = self.__extract_movie_tags()
+    return Movie.tags_to_array(tags)
 
-  def __movie_links_to_titles_array(self, links):
+  def __extract_movie_tags(self):
+    return self.soup.find_all("a", class_="cellMainLink")
+
+
+class Movie:
+
+  @classmethod
+  def tags_to_array(self, tags):
     movies = []
-    for movie in links:
-      movies.append(''.join(movie.contents))
+    for tag in tags:
+      movie = self.from_tag(tag)
+      movies.append(movie)
     return movies
 
-  def __sanitize_movie_links(self, links):
-    for movie in self.__extract_movie_links():
-      movie.strong.unwrap()
+  @classmethod
+  def from_tag(self, tag):
+    tag.strong.unwrap()
+    title = ''.join(tag.contents)
+    return self(title)
 
-  def __extract_movie_links(self):
-    return self.soup.find_all("a", class_="cellMainLink")
+  def __init__(self, title):
+    self.title = title
+
+
+#################################################
 
 
 class KatPageTest(unittest.TestCase):
@@ -39,13 +50,13 @@ class KatPageTest(unittest.TestCase):
 
   def test_readCorrectlyMovieTitles(self):
     movies = self.page.movies()
-    self.assertEqual(movies[0], # todo -> this will be 'movies[0].title'
+    self.assertEqual(movies[0].title, # todo -> this will be 'movies[0].title'
       "Son Of A Gun (2014) BRrip XviD - Italian English Ac3 5 1 Sub ita eng MIRCrew"
     );
-    self.assertEqual(movies[1],
+    self.assertEqual(movies[1].title,
       "Lo Stagista Inaspettato-The Intern 2015 iTALiAN BRRip XviD BLUWORLD"
     );
-    self.assertEqual(movies[7],
+    self.assertEqual(movies[7].title,
       "Inside Out 2015 iTALiAN BDRip XviD-TRL[MT] avi"
     );
 
