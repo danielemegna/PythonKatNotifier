@@ -35,9 +35,9 @@ $ deactivate
 
 Now you can run tests via
 ```
-$ python test/*.py
+$ python -m unittest discover
 ```
-or easier with the bash script
+or easier via the bash script
 ```
 $ ./runtest
 ```

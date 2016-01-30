@@ -1,3 +1,4 @@
 #!/bin/bash
 clear
-python test/*.py
+python -m unittest discover
+rm */*.pyc # clean compiled python files
