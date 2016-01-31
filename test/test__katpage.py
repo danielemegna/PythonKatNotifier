@@ -4,7 +4,7 @@ from katnotifier import KatPage
 class KatPageTest(unittest.TestCase):
 
   def setUp(self):
-    html = self.__read_file('test/katPage.html')
+    html = self.__read_file('test/kat_page_example1.html')
     self.page = KatPage(html)
 
   def test_recognizeCorrectlyNumberOfMovies(self):

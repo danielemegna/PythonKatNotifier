@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from movie import Movie
+from . import Movie
 
 class KatPage:
 

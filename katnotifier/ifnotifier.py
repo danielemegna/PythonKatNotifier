@@ -3,7 +3,15 @@ import urllib2
 
 class IFNotifier:
 
-  IF_MAKER_URL = "https://maker.ifttt.com/trigger/new_film_available/with/key/g_t7YYx1cqoDKvOBiPssx8l5YBTI8OnWjhUiRKD5Zim"
+  def send(self, title):
+    raise NotImplementedError("You're calling an abstract class!")
+
+
+class HttpIFNotifier(IFNotifier):
+    
+  IF_MAKER_EVENT = "new_film_available"
+  IF_MAKER_KEY = "g_t7YYx1cqoDKvOBiPssx8l5YBTI8OnWjhUiRKD5Zim"
+  IF_MAKER_URL = "https://maker.ifttt.com/trigger/" + IF_MAKER_EVENT + "/with/key/" + IF_MAKER_KEY
 
   def send(self, title):
     data = json.dumps({ "value1" : title })
