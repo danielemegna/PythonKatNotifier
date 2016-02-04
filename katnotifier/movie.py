@@ -16,3 +16,6 @@ class Movie:
 
   def __init__(self, title):
     self.title = title
+
+  def __hash__(self):
+    return hash(self.title)
