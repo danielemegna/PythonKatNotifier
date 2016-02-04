@@ -19,3 +19,6 @@ class Movie:
 
   def __hash__(self):
     return hash(self.title)
+
+  def __eq__(self, other):
+    return self.title == other.title
