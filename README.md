@@ -41,5 +41,11 @@ or easier via the bash script
 ```
 $ ./runtest
 ```
+The runtest script is compiliant with unittest test selectors
+```bash
+$ ./runtest test_module               # run tests from test_module
+$ ./runtest module.TestClass          # run tests from module.TestClass
+$ ./runtest module.Class.test_method  # run specified test method
+```
 
 

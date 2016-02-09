@@ -1,4 +1,11 @@
 #!/bin/bash
 clear
-python -m unittest discover
+
+if [ -z "$1" ]
+  then
+    python -m unittest discover
+  else
+    python -m unittest $1
+fi
+
 rm */*.pyc # clean compiled python files
