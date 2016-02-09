@@ -32,7 +32,10 @@ class KatNotifierTest(unittest.TestCase):
 
   def test_notifyNewFilmWithFullRepository(self):
     htmlMockFile = 'test/kat_page_example3.html'
-    alreadyNotifiedMovies = [Movie("Film gia notificato"), Movie("Film notificato non piu presente nella pagina")]
+    alreadyNotifiedMovies = [
+      Movie("Film gia notificato"),
+      Movie("Film notificato non piu presente nella pagina")
+    ]
     self.__setupMocks(htmlMockFile, alreadyNotifiedMovies)
 
     self.katNotifier.work()
@@ -44,6 +47,25 @@ class KatNotifierTest(unittest.TestCase):
       "?field=time_add&sorder=desc"
     )
     self.ifNotifier.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
+
+  def test_noNotificationWithNoNewFilms(self):
+    htmlMockFile = 'test/kat_page_example3.html'
+    alreadyNotifiedMovies = [
+      Movie("Film gia notificato"),
+      Movie("Film notificato non piu presente nella pagina"),
+      Movie("Nuovo iTALiAN film non notificato")
+    ]
+    self.__setupMocks(htmlMockFile, alreadyNotifiedMovies)
+
+    self.katNotifier.work()
+
+    self.moviesRepository.alreadyNotified.assert_called_once_with()
+    self.htmlRetriever.get.assert_called_once_with(
+      "http://kat.cr/usearch/" +
+      "italian%20-md%20-cam%20-telesync%20-ts%20-screener%20category%3Amovies%20seeds%3A200/" +
+      "?field=time_add&sorder=desc"
+    )
+    self.ifNotifier.send.assert_not_called()
 
   
   def __setupMocks(self, htmlMockFile, alreadyNotifiedMovies):
