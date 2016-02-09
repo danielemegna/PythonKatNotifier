@@ -16,9 +16,9 @@ class KatNotifierTest(unittest.TestCase):
     self.katNotifier = KatNotifier(self.moviesRepository, self.ifNotifier, self.htmlRetriever)
 
   def test_notifyNewFilmWithEmptyRepository(self):
-    self.htmlRetriever.get = MagicMock(return_value=self.__read_file('test/kat_page_example2.html'));
-    self.moviesRepository.alreadyNotified = MagicMock(return_value=[]);
-    self.ifNotifier.send = MagicMock();
+    htmlMockFile = 'test/kat_page_example2.html'
+    alreadyNotifiedMovies = []
+    self.__setupMocks(htmlMockFile, alreadyNotifiedMovies)
 
     self.katNotifier.work()
 
@@ -31,10 +31,9 @@ class KatNotifierTest(unittest.TestCase):
     self.ifNotifier.send.assert_called_once_with("Titolo del nuovo iTALiAN film")
 
   def test_notifyNewFilmWithFullRepository(self):
-    self.htmlRetriever.get = MagicMock(return_value=self.__read_file('test/kat_page_example3.html'));
-    alreadyNotified = [Movie("Film gia notificato"), Movie("Film notificato non piu presente nella pagina")]
-    self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotified);
-    self.ifNotifier.send = MagicMock();
+    htmlMockFile = 'test/kat_page_example3.html'
+    alreadyNotifiedMovies = [Movie("Film gia notificato"), Movie("Film notificato non piu presente nella pagina")]
+    self.__setupMocks(htmlMockFile, alreadyNotifiedMovies)
 
     self.katNotifier.work()
 
@@ -46,7 +45,11 @@ class KatNotifierTest(unittest.TestCase):
     )
     self.ifNotifier.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
 
-
+  
+  def __setupMocks(self, htmlMockFile, alreadyNotifiedMovies):
+    self.htmlRetriever.get = MagicMock(return_value=self.__read_file(htmlMockFile))
+    self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotifiedMovies)
+    self.ifNotifier.send = MagicMock()
 
   def __read_file(self, path):
     file = open(path, 'r')
