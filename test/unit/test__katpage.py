@@ -1,10 +1,10 @@
-import unittest
+from . import UnitTestBase
 from katnotifier import KatPage
 
-class KatPageTest(unittest.TestCase):
+class KatPageTest(UnitTestBase):
 
   def setUp(self):
-    html = self.__read_file('test/kat_page_example1.html')
+    html = self._read_file('kat_page_example1.html')
     self.page = KatPage(html)
 
   def test_recognizeCorrectlyNumberOfMovies(self):
@@ -22,9 +22,3 @@ class KatPageTest(unittest.TestCase):
     self.assertEqual(movies[7].title,
       "Inside Out 2015 iTALiAN BDRip XviD-TRL[MT] avi"
     );
-
-  def __read_file(self, path):
-    file = open(path, 'r')
-    html = file.read()
-    file.close()
-    return html

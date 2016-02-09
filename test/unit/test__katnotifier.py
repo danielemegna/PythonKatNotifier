@@ -1,13 +1,12 @@
-import unittest
+from . import UnitTestBase
 from mock import MagicMock
 
-from katnotifier import KatNotifier
-from katnotifier import IFNotifier
-from katnotifier import MovieRepository
-from katnotifier import HtmlRetriever
-from katnotifier import Movie
+from katnotifier import (
+  KatNotifier, IFNotifier,
+  MovieRepository, HtmlRetriever, Movie
+)
 
-class KatNotifierTest(unittest.TestCase):
+class KatNotifierTest(UnitTestBase):
 
   def setUp(self):
     self.moviesRepository = MovieRepository()
@@ -16,7 +15,7 @@ class KatNotifierTest(unittest.TestCase):
     self.katNotifier = KatNotifier(self.moviesRepository, self.ifNotifier, self.htmlRetriever)
 
   def test_notifyNewFilmWithEmptyRepository(self):
-    htmlMockFile = 'test/kat_page_example2.html'
+    htmlMockFile = 'kat_page_example2.html'
     alreadyNotifiedMovies = []
     self.__setupMocks(htmlMockFile, alreadyNotifiedMovies)
 
@@ -31,7 +30,7 @@ class KatNotifierTest(unittest.TestCase):
     self.ifNotifier.send.assert_called_once_with("Titolo del nuovo iTALiAN film")
 
   def test_notifyNewFilmWithFullRepository(self):
-    htmlMockFile = 'test/kat_page_example3.html'
+    htmlMockFile = 'kat_page_example3.html'
     alreadyNotifiedMovies = [
       Movie("Film gia notificato"),
       Movie("Film notificato non piu presente nella pagina")
@@ -49,7 +48,7 @@ class KatNotifierTest(unittest.TestCase):
     self.ifNotifier.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
 
   def test_noNotificationWithNoNewFilms(self):
-    htmlMockFile = 'test/kat_page_example3.html'
+    htmlMockFile = 'kat_page_example3.html'
     alreadyNotifiedMovies = [
       Movie("Film gia notificato"),
       Movie("Film notificato non piu presente nella pagina"),
@@ -69,12 +68,6 @@ class KatNotifierTest(unittest.TestCase):
 
   
   def __setupMocks(self, htmlMockFile, alreadyNotifiedMovies):
-    self.htmlRetriever.get = MagicMock(return_value=self.__read_file(htmlMockFile))
+    self.htmlRetriever.get = MagicMock(return_value=self._read_file(htmlMockFile))
     self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotifiedMovies)
     self.ifNotifier.send = MagicMock()
-
-  def __read_file(self, path):
-    file = open(path, 'r')
-    html = file.read()
-    file.close()
-    return html

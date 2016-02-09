@@ -33,19 +33,22 @@ $ deactivate
 
 ### Test
 
-Now you can run tests via
+Now you can run all the tests via:
 ```
 $ python -m unittest discover
 ```
-or easier via the bash script
+or easier via the bash script:
 ```
 $ ./runtest
 ```
-The runtest script is compiliant with unittest test selectors
+The runtest script is compiliant with unittest test selectors:
 ```bash
 $ ./runtest test_module               # run tests from test_module
 $ ./runtest module.TestClass          # run tests from module.TestClass
 $ ./runtest module.Class.test_method  # run specified test method
 ```
-
-
+The test package structure allows selective test run for *unit* and *integration* tests:
+```bash
+$ ./runtest test.unit         # run unitary tests
+$ ./runtest test.integration  # run integration tests
+```

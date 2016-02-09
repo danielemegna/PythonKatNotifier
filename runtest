@@ -8,4 +8,4 @@ if [ -z "$1" ]
     python -m unittest $1
 fi
 
-rm */*.pyc # clean compiled python files
+find . -name "*.pyc" -type f -delete

@@ -1,7 +1,7 @@
-import unittest
+from . import UnitTestBase
 from katnotifier import Movie
 
-class MovieTest(unittest.TestCase):
+class MovieTest(UnitTestBase):
 
   def test_equalityViaAssert(self):
     m1 = Movie("Primo film")
