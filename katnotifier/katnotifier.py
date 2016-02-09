@@ -22,6 +22,7 @@ class KatNotifier:
 
     for movie in toNotify:
       self.ifNotifier.send(movie.title)
+      self.moviesRepository.add(movie)
 
     return
 

@@ -28,6 +28,7 @@ class KatNotifierTest(UnitTestBase):
       "?field=time_add&sorder=desc"
     )
     self.ifNotifier.send.assert_called_once_with("Titolo del nuovo iTALiAN film")
+    self.moviesRepository.add.assert_called_once_with(Movie("Titolo del nuovo iTALiAN film"))
 
   def test_notifyNewFilmWithFullRepository(self):
     htmlMockFile = 'kat_page_example3.html'
@@ -46,6 +47,7 @@ class KatNotifierTest(UnitTestBase):
       "?field=time_add&sorder=desc"
     )
     self.ifNotifier.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
+    self.moviesRepository.add.assert_called_once_with(Movie("Nuovo iTALiAN film non notificato"))
 
   def test_noNotificationWithNoNewFilms(self):
     htmlMockFile = 'kat_page_example3.html'
@@ -65,9 +67,11 @@ class KatNotifierTest(UnitTestBase):
       "?field=time_add&sorder=desc"
     )
     self.ifNotifier.send.assert_not_called()
+    self.moviesRepository.add.assert_not_called()
 
   
   def __setupMocks(self, htmlMockFile, alreadyNotifiedMovies):
     self.htmlRetriever.get = MagicMock(return_value=self._read_file(htmlMockFile))
     self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotifiedMovies)
     self.ifNotifier.send = MagicMock()
+    self.moviesRepository.add = MagicMock()
