@@ -2,11 +2,7 @@ class Movie:
 
   @classmethod
   def tags_to_array(self, tags):
-    movies = []
-    for tag in tags:
-      movie = self.from_tag(tag)
-      movies.append(movie)
-    return movies
+    return map(self.from_tag, tags)
 
   @classmethod
   def from_tag(self, tag):
