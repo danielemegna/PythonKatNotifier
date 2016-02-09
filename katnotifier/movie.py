@@ -10,7 +10,9 @@ class Movie:
 
   @classmethod
   def from_tag(self, tag):
-    tag.strong.unwrap()
+    if(tag.strong):
+      tag.strong.unwrap()
+
     title = ''.join(tag.contents)
     return self(title)
 

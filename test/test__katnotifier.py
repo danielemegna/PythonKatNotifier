@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import unittest
 from mock import MagicMock
 
@@ -7,6 +5,7 @@ from katnotifier import KatNotifier
 from katnotifier import IFNotifier
 from katnotifier import MovieRepository
 from katnotifier import HtmlRetriever
+from katnotifier import Movie
 
 class KatNotifierTest(unittest.TestCase):
 
@@ -31,9 +30,9 @@ class KatNotifierTest(unittest.TestCase):
     )
     self.ifNotifier.send.assert_called_once_with("Titolo del nuovo iTALiAN film")
 
-  def xtest_notifyNewFilmWithFullRepository(self):
+  def test_notifyNewFilmWithFullRepository(self):
     self.htmlRetriever.get = MagicMock(return_value=self.__read_file('test/kat_page_example3.html'));
-    alreadyNotified = ["Film già notificato", "Film notificato non più presente nella pagina"]
+    alreadyNotified = [Movie("Film gia notificato"), Movie("Film notificato non piu presente nella pagina")]
     self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotified);
     self.ifNotifier.send = MagicMock();
 
