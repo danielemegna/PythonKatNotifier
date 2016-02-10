@@ -11,6 +11,6 @@ class UnitTestBase(unittest.TestCase):
     file.close()
     return html
 
-from test__katnotifier import KatNotifierTest
-from test__katpage import KatPageTest
+from test__katNotifier import KatNotifierTest
+from test__katPage import KatPageTest
 from test__movie import MovieTest
