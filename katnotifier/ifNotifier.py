@@ -6,10 +6,10 @@ class IFNotifier:
   def send(self, message):
     raise NotImplementedError("You're calling an abstract class!")
 
-class PrintIFNotifier:
+class PrintIFNotifier(IFNotifier):
 
   def send(self, message):
-    print message
+    print "Notify:\t\t[" + message + "]"
 
 class HttpIFNotifier(IFNotifier):
     

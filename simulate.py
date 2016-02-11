@@ -1,13 +1,12 @@
 from katnotifier import HttpIFNotifier
 from katnotifier import (
-  KatNotifier, SqlLiteMovieRepository,
+  KatNotifier, PrintMovieRepository,
   PrintIFNotifier, UrlLibHtmlRetriever
 )
 
-moviesRepository = SqlLiteMovieRepository('test/integration/test.db')
+moviesRepository = PrintMovieRepository()
 ifNotifier = PrintIFNotifier()
 htmlRetriever = UrlLibHtmlRetriever()
 katNotifier = KatNotifier(moviesRepository, ifNotifier, htmlRetriever)
 
-#katNotifier.work()
-
+katNotifier.work()
