@@ -11,6 +11,14 @@ class SqlLiteMovieRepository(MovieRepository):
   def alreadyNotified(self):
     return self.__getMoviesByQuery("select * from Movies")
 
+  def add(self, movie):
+    connection = self.__openConnection()
+    cursor = connection.cursor()
+    sql = "insert into movies(title) values(?)"
+    cursor.execute(sql, [movie.title])
+    connection.commit()
+    self.__closeConnection(connection)
+
   def __getMoviesByQuery(self, query):
     connection = self.__openConnection()
     rows = connection.execute(query)
