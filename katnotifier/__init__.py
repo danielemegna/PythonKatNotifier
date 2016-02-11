@@ -2,6 +2,9 @@ from movie import Movie
 from katPage import KatPage
 from katNotifier import KatNotifier
 from ifNotifier import IFNotifier
+from ifNotifier import HttpIFNotifier
+from ifNotifier import PrintIFNotifier
 from movieRepository import MovieRepository
 from htmlRetriever import HtmlRetriever
+from htmlRetriever import UrlLibHtmlRetriever
 from sqlLiteMovieRepository import SqlLiteMovieRepository
