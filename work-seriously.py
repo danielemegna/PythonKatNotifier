@@ -1,12 +1,24 @@
+import os
+
 from katnotifier import HttpIFNotifier
 from katnotifier import (
-  KatNotifier, SqlLiteMovieRepository, PrintIFNotifier,
-  HttpIFNotifier, UrlLibHtmlRetriever
+  KatNotifier, SqlLiteMovieRepository, UrlLibHtmlRetriever,
+  PrintIFNotifier, HttpIFNotifier, IFNotifiersList
 )
 
-moviesRepository = SqlLiteMovieRepository('production.db')
-ifNotifier = HttpIFNotifier()
-htmlRetriever = UrlLibHtmlRetriever()
-katNotifier = KatNotifier(moviesRepository, ifNotifier, htmlRetriever)
+def absolutePathFromRelative(relative):
+  currentDirectory = os.path.dirname(__file__)
+  return os.path.join(currentDirectory, relative)
 
+ifNotifier = IFNotifiersList([
+  HttpIFNotifier(),
+  PrintIFNotifier()
+])
+
+dbPath = absolutePathFromRelative('production.db')
+moviesRepository = SqlLiteMovieRepository(dbPath)
+htmlRetriever = UrlLibHtmlRetriever()
+
+katNotifier = KatNotifier(moviesRepository, ifNotifier, htmlRetriever)
 katNotifier.work()
+
