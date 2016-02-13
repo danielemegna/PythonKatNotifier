@@ -1,5 +1,6 @@
 from movie import Movie
 from katPage import KatPage
+from katSearch import KatSearch
 from katNotifier import KatNotifier
 from ifNotifier import IFNotifier
 from ifNotifier import IFNotifiersList

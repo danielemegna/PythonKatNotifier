@@ -14,3 +14,4 @@ class UnitTestBase(unittest.TestCase):
 from test__katNotifier import KatNotifierTest
 from test__katPage import KatPageTest
 from test__movie import MovieTest
+from test__katSearch import KatSearchTest
