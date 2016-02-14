@@ -2,14 +2,15 @@ import urllib
 
 class KatSearch:
 
-  protocol = "http"
-  katDomain = "kat.cr"
 
   def __init__(self):
+    self.protocol = "http"
+    self.katDomain = "kat.cr"
     self.includedWords = []
     self.excludedWords = []
     self.category = None
     self.minSeeds = None
+    self.orderByField = None
 
   def include(self, word):
     self.includedWords.append(word)
@@ -27,6 +28,10 @@ class KatSearch:
     self.minSeeds = minSeeds
     return self
 
+  def orderBy(self, field, order):
+    self.orderByField = (field, order)
+    return self
+
   def toUrl(self):
     if(len(self.includedWords) > 0):
       keywords = " ".join(self.includedWords) + " "
@@ -40,4 +45,10 @@ class KatSearch:
 
     keywords = keywords.strip()
     keywords = urllib.quote(keywords)
-    return "{}://{}/usearch/{}".format(self.protocol, self.katDomain, keywords)
+
+    orderClause = ""
+    if(self.orderByField is not None):
+      orderClause = "?field={}&sorder={}".format(*self.orderByField)
+        
+
+    return "{}://{}/usearch/{}/{}".format(self.protocol, self.katDomain, keywords, orderClause)
