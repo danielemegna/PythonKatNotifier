@@ -1,10 +1,6 @@
 from . import UnitTestBase
 from katnotifier import KatSearch
 
-#"http://kat.cr/usearch/" +
-#"italian%20-md%20-cam%20-telesync%20-ts%20-screener%20category%3Amovies%20seeds%3A200/" +
-#"?field=time_add&sorder=desc"
-
 class KatSearchTest(UnitTestBase):
 
   def test_simpleKatSearch(self):
@@ -32,3 +28,25 @@ class KatSearchTest(UnitTestBase):
 
     actual = search.toUrl()
     self.assertEquals(expected, actual)
+
+  def test_searchInCategory(self):
+    search = KatSearch()  \
+      .include("italian") \
+      .inCategory("movies")
+    expected = "http://kat.cr/usearch/italian%20category%3Amovies"
+
+    actual = search.toUrl()
+    self.assertEquals(expected, actual)
+
+  def test_withMinSeed(self):
+    search = KatSearch()  \
+      .include("italian") \
+      .withMinSeeds(200)
+    expected = "http://kat.cr/usearch/italian%20seeds%3A200"
+
+    actual = search.toUrl()
+    self.assertEquals(expected, actual)
+
+#"http://kat.cr/usearch/" +
+#"italian%20-md%20-cam%20-telesync%20-ts%20-screener%20category%3Amovies%20seeds%3A200/" +
+#"?field=time_add&sorder=desc"
