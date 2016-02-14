@@ -1,4 +1,5 @@
 from . import KatPage
+from . import KatSearch
 
 class KatNotifier:
   
@@ -9,13 +10,22 @@ class KatNotifier:
     return
   
   def work(self):
-    html = self.htmlRetriever.get(
-      "http://kat.cr/usearch/" +
-      "italian%20-md%20-cam%20-telesync%20-ts%20-screener%20category%3Amovies%20seeds%3A200/" +
-      "?field=time_add&sorder=desc"
-    )
+    katSearch = KatSearch()    \
+      .include("italian")   \
+      .exclude("md")        \
+      .exclude("cam")       \
+      .exclude("telesync")  \
+      .exclude("ts")        \
+      .exclude("screener")  \
+      .inCategory("movies") \
+      .withMinSeeds(200)    \
+      .orderBy("time_add", "desc")
+
+    searchUrl = katSearch.toUrl()
+    html = self.htmlRetriever.get(searchUrl)
 
     katPage = KatPage(html)
+
     actual = katPage.movies()
     alreadyNotified = self.moviesRepository.alreadyNotified()
     toNotify = set(actual) - set(alreadyNotified)
