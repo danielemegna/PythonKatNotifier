@@ -2,7 +2,6 @@ import urllib
 
 class KatSearch:
 
-
   def __init__(self):
     self.protocol = "http"
     self.katDomain = "kat.cr"
@@ -12,12 +11,12 @@ class KatSearch:
     self.minSeeds = None
     self.orderByField = None
 
-  def include(self, word):
-    self.includedWords.append(word)
+  def include(self, words):
+    self.includedWords += words.split()
     return self
 
-  def exclude(self, word):
-    self.excludedWords.append(word)
+  def exclude(self, words):
+    self.excludedWords += words.split()
     return self
 
   def inCategory(self, category):

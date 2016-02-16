@@ -56,16 +56,23 @@ class KatSearchTest(UnitTestBase):
     actual = search.toUrl()
     self.assertEquals(expected, actual)
 
+  def test_includeAndExcludeAcceptMultipleWords(self):
+    search = KatSearch()                      \
+      .include("italian movie")               \
+      .exclude("md cam telesync ts screener")
+
+    expected = "http://kat.cr/usearch/" + \
+      "italian%20movie%20-md%20-cam%20-telesync%20-ts%20-screener/"
+
+    actual = search.toUrl()
+    self.assertEquals(expected, actual)
+
   def test_finalAcceptanceTest(self):
-    search = KatSearch()    \
-      .include("italian")   \
-      .exclude("md")        \
-      .exclude("cam")       \
-      .exclude("telesync")  \
-      .exclude("ts")        \
-      .exclude("screener")  \
-      .inCategory("movies") \
-      .withMinSeeds(200)    \
+    search = KatSearch()                      \
+      .include("italian")                     \
+      .exclude("md cam telesync ts screener") \
+      .inCategory("movies")                   \
+      .withMinSeeds(200)                      \
       .orderBy("time_add", "desc")
 
     expected = "http://kat.cr/usearch/" + \

@@ -10,15 +10,11 @@ class KatNotifier:
     return
   
   def work(self):
-    katSearch = KatSearch()    \
-      .include("italian")   \
-      .exclude("md")        \
-      .exclude("cam")       \
-      .exclude("telesync")  \
-      .exclude("ts")        \
-      .exclude("screener")  \
-      .inCategory("movies") \
-      .withMinSeeds(200)    \
+    katSearch = KatSearch()                   \
+      .include("italian")                     \
+      .exclude("md cam telesync ts screener") \
+      .inCategory("movies")                   \
+      .withMinSeeds(200)                      \
       .orderBy("time_add", "desc")
 
     searchUrl = katSearch.toUrl()
