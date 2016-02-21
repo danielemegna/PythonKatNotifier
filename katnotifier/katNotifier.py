@@ -3,21 +3,15 @@ from . import KatSearch
 
 class KatNotifier:
   
-  def __init__(self, moviesRepository, ifNotifier, htmlRetriever):
+  def __init__(self, moviesRepository, ifNotifier, htmlRetriever, katSearch):
     self.ifNotifier = ifNotifier
     self.moviesRepository = moviesRepository
     self.htmlRetriever = htmlRetriever
+    self.katSearch = katSearch
     return
   
   def work(self):
-    katSearch = KatSearch()                   \
-      .include("italian")                     \
-      .exclude("md cam telesync ts screener") \
-      .inCategory("movies")                   \
-      .withMinSeeds(200)                      \
-      .orderBy("time_add", "desc")
-
-    searchUrl = katSearch.toUrl()
+    searchUrl = self.katSearch.toUrl()
     html = self.htmlRetriever.get(searchUrl)
 
     katPage = KatPage(html)

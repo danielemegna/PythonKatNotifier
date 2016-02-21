@@ -8,11 +8,14 @@ from katnotifier import (
 
 class KatNotifierTest(UnitTestBase):
 
+  searchUrl = "http://kat.cr/usearch"
+
   def setUp(self):
     self.moviesRepository = MovieRepository()
     self.ifNotifier = IFNotifier()
     self.htmlRetriever = HtmlRetriever()
-    self.katNotifier = KatNotifier(self.moviesRepository, self.ifNotifier, self.htmlRetriever)
+    self.katSearch = MagicMock();
+    self.katNotifier = KatNotifier(self.moviesRepository, self.ifNotifier, self.htmlRetriever, self.katSearch)
 
   def test_notifyNewFilmWithEmptyRepository(self):
     htmlMockFile = 'kat_page_example2.html'
@@ -21,12 +24,9 @@ class KatNotifierTest(UnitTestBase):
 
     self.katNotifier.work()
 
+    self.katSearch.toUrl.assert_called_once_with()
     self.moviesRepository.alreadyNotified.assert_called_once_with()
-    self.htmlRetriever.get.assert_called_once_with(
-      "http://kat.cr/usearch/" +
-      "italian%20-md%20-cam%20-telesync%20-ts%20-screener%20category%3Amovies%20seeds%3A200/" +
-      "?field=time_add&sorder=desc"
-    )
+    self.htmlRetriever.get.assert_called_once_with(self.searchUrl)
     self.ifNotifier.send.assert_called_once_with("Titolo del nuovo iTALiAN film")
     self.moviesRepository.add.assert_called_once_with(Movie("Titolo del nuovo iTALiAN film"))
 
@@ -40,12 +40,9 @@ class KatNotifierTest(UnitTestBase):
 
     self.katNotifier.work()
 
+    self.katSearch.toUrl.assert_called_once_with()
     self.moviesRepository.alreadyNotified.assert_called_once_with()
-    self.htmlRetriever.get.assert_called_once_with(
-      "http://kat.cr/usearch/" +
-      "italian%20-md%20-cam%20-telesync%20-ts%20-screener%20category%3Amovies%20seeds%3A200/" +
-      "?field=time_add&sorder=desc"
-    )
+    self.htmlRetriever.get.assert_called_once_with(self.searchUrl)
     self.ifNotifier.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
     self.moviesRepository.add.assert_called_once_with(Movie("Nuovo iTALiAN film non notificato"))
 
@@ -60,12 +57,9 @@ class KatNotifierTest(UnitTestBase):
 
     self.katNotifier.work()
 
+    self.katSearch.toUrl.assert_called_once_with()
     self.moviesRepository.alreadyNotified.assert_called_once_with()
-    self.htmlRetriever.get.assert_called_once_with(
-      "http://kat.cr/usearch/" +
-      "italian%20-md%20-cam%20-telesync%20-ts%20-screener%20category%3Amovies%20seeds%3A200/" +
-      "?field=time_add&sorder=desc"
-    )
+    self.htmlRetriever.get.assert_called_once_with(self.searchUrl)
     self.ifNotifier.send.assert_not_called()
     self.moviesRepository.add.assert_not_called()
 
@@ -75,3 +69,4 @@ class KatNotifierTest(UnitTestBase):
     self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotifiedMovies)
     self.ifNotifier.send = MagicMock()
     self.moviesRepository.add = MagicMock()
+    self.katSearch.toUrl.return_value = self.searchUrl
