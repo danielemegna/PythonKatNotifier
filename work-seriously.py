@@ -3,7 +3,7 @@ import os
 from katnotifier import HttpIFNotifier
 from katnotifier import (
   KatNotifier, SqlLiteMovieRepository, UrlLibHtmlRetriever,
-  PrintIFNotifier, HttpIFNotifier, IFNotifiersList
+  PrintIFNotifier, HttpIFNotifier, IFNotifiersList, KatSearch
 )
 
 def absolutePathFromRelative(relative):

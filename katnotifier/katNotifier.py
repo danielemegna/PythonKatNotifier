@@ -1,5 +1,4 @@
 from . import KatPage
-from . import KatSearch
 
 class KatNotifier:
   
