@@ -9,7 +9,7 @@ class Movie:
     if(tag.strong):
       tag.strong.unwrap()
 
-    title = ''.join(tag.contents)
+    title = ''.join(tag.contents).encode('ascii', 'ignore')
     return self(title)
 
   def __init__(self, title):
