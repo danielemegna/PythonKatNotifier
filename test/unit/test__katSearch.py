@@ -1,5 +1,5 @@
 from . import UnitTestBase
-from katnotifier import KatSearch
+from moviesnotifier import KatSearch
 
 class KatSearchTest(UnitTestBase):
 

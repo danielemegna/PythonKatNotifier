@@ -2,8 +2,8 @@ import unittest
 import os
 import shutil
 
-from katnotifier import SqlLiteMovieRepository
-from katnotifier import Movie
+from moviesnotifier import SqlLiteMovieRepository
+from moviesnotifier import Movie
 
 class SqlLiteMovieRepositoryTest(unittest.TestCase):
   

@@ -1,5 +1,5 @@
 from . import UnitTestBase
-from katnotifier import KatPage
+from moviesnotifier import KatPage
 
 class KatPageTest(UnitTestBase):
 

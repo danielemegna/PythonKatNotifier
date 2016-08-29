@@ -1,21 +1,21 @@
 from . import KatPage
 
-class KatNotifier:
+class MoviesNotifier:
   
-  def __init__(self, moviesRepository, ifNotifier, htmlRetriever, katSearch):
+  def __init__(self, moviesRepository, ifNotifier, htmlRetriever, moviesSearch):
     self.ifNotifier = ifNotifier
     self.moviesRepository = moviesRepository
     self.htmlRetriever = htmlRetriever
-    self.katSearch = katSearch
+    self.moviesSearch = moviesSearch
     return
   
   def work(self):
-    searchUrl = self.katSearch.toUrl()
+    searchUrl = self.moviesSearch.toUrl()
     html = self.htmlRetriever.get(searchUrl)
 
-    katPage = KatPage(html)
+    page = KatPage(html)
 
-    actual = katPage.movies()
+    actual = page.movies()
     alreadyNotified = self.moviesRepository.alreadyNotified()
     toNotify = set(actual) - set(alreadyNotified)
 

@@ -1,5 +1,5 @@
 from . import UnitTestBase
-from katnotifier import Movie
+from moviesnotifier import Movie
 
 class MovieTest(UnitTestBase):
 

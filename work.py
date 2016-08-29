@@ -1,8 +1,8 @@
 import os
 
-from katnotifier import HttpIFNotifier
-from katnotifier import (
-  KatNotifier, SqlLiteMovieRepository, UrlLibHtmlRetriever,
+from moviesnotifier import HttpIFNotifier
+from moviesnotifier import (
+  MoviesNotifier, SqlLiteMovieRepository, UrlLibHtmlRetriever,
   PrintIFNotifier, HttpIFNotifier, IFNotifiersList, KatSearch
 )
 
@@ -17,7 +17,7 @@ ifNotifier = IFNotifiersList([
   PrintIFNotifier()
 ])
 
-katSearch = KatSearch()                   \
+moviesSearch = KatSearch()                \
   .include("italian")                     \
   .exclude("md cam telesync ts screener") \
   .inCategory("movies")                   \
@@ -28,5 +28,5 @@ dbPath = absolutePathFromRelative('production.db')
 moviesRepository = SqlLiteMovieRepository(dbPath)
 htmlRetriever = UrlLibHtmlRetriever()
 
-katNotifier = KatNotifier(moviesRepository, ifNotifier, htmlRetriever, katSearch)
-katNotifier.work()
+moviesNotifier = MoviesNotifier(moviesRepository, ifNotifier, htmlRetriever, katSearch)
+moviesNotifier.work()
