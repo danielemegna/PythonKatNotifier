@@ -2,8 +2,8 @@ from . import KatPage
 
 class MoviesNotifier:
   
-  def __init__(self, moviesRepository, ifNotifier, htmlRetriever, moviesSearch):
-    self.ifNotifier = ifNotifier
+  def __init__(self, moviesRepository, notificationListener, htmlRetriever, moviesSearch):
+    self.notificationListener = notificationListener
     self.moviesRepository = moviesRepository
     self.htmlRetriever = htmlRetriever
     self.moviesSearch = moviesSearch
@@ -20,7 +20,7 @@ class MoviesNotifier:
     toNotify = set(actual) - set(alreadyNotified)
 
     for movie in toNotify:
-      self.ifNotifier.send(movie.title)
+      self.notificationListener.send(movie.title)
       self.moviesRepository.add(movie)
 
     return

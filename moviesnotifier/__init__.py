@@ -2,10 +2,10 @@ from movie import Movie
 from katPage import KatPage
 from katSearch import KatSearch
 from moviesNotifier import MoviesNotifier
+from notificationListener import NotificationListener
+from notificationListener import NotificationListenerList
+from notificationListener import PrintNotificationListener
 from ifNotifier import IFNotifier
-from ifNotifier import IFNotifiersList
-from ifNotifier import PrintIFNotifier
-from httpIfNotifier import HttpIFNotifier
 from movieRepository import MovieRepository
 from movieRepository import PrintMovieRepository
 from htmlRetriever import HtmlRetriever

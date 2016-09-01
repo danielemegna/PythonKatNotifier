@@ -1,9 +1,8 @@
 import os
 
-from moviesnotifier import HttpIFNotifier
 from moviesnotifier import (
   MoviesNotifier, SqlLiteMovieRepository, UrlLibHtmlRetriever,
-  PrintIFNotifier, HttpIFNotifier, IFNotifiersList, KatSearch
+  PrintNotificationListener, IFNotifier, NotificationListenerList, KatSearch
 )
 
 def absolutePathFromRelative(relative):
@@ -12,9 +11,9 @@ def absolutePathFromRelative(relative):
 
 ################################### BEGIN
 
-ifNotifier = IFNotifiersList([
-  HttpIFNotifier(),
-  PrintIFNotifier()
+notificationListeners = NotificationListenerList([
+  IFNotifier(),
+  PrintNotificationListener()
 ])
 
 moviesSearch = KatSearch()                \
@@ -28,5 +27,5 @@ dbPath = absolutePathFromRelative('production.db')
 moviesRepository = SqlLiteMovieRepository(dbPath)
 htmlRetriever = UrlLibHtmlRetriever()
 
-moviesNotifier = MoviesNotifier(moviesRepository, ifNotifier, htmlRetriever, katSearch)
+moviesNotifier = MoviesNotifier(moviesRepository, notificationListeners, htmlRetriever, moviesSearch)
 moviesNotifier.work()

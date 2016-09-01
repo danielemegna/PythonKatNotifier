@@ -2,7 +2,7 @@ from . import UnitTestBase
 from mock import MagicMock
 
 from moviesnotifier import (
-  MoviesNotifier, IFNotifier,
+  MoviesNotifier, NotificationListener,
   MovieRepository, HtmlRetriever, Movie
 )
 
@@ -12,10 +12,10 @@ class MoviesNotifierTest(UnitTestBase):
 
   def setUp(self):
     self.moviesRepository = MovieRepository()
-    self.ifNotifier = IFNotifier()
+    self.notifier = NotificationListener()
     self.htmlRetriever = HtmlRetriever()
-    self.moviesSearch = MagicMock();
-    self.moviesNotifier = MoviesNotifier(self.moviesRepository, self.ifNotifier, self.htmlRetriever, self.moviesSearch)
+    self.moviesSearch = MagicMock()
+    self.moviesNotifier = MoviesNotifier(self.moviesRepository, self.notifier, self.htmlRetriever, self.moviesSearch)
 
   def test_notifyNewFilmWithEmptyRepository(self):
     htmlMockFile = 'kat_page_example2.html'
@@ -25,9 +25,9 @@ class MoviesNotifierTest(UnitTestBase):
     self.moviesNotifier.work()
 
     self.moviesSearch.toUrl.assert_called_once_with()
-    self.moviesRepository.alreadyNotified.assert_called_once_with()
     self.htmlRetriever.get.assert_called_once_with(self.searchUrl)
-    self.ifNotifier.send.assert_called_once_with("Titolo del nuovo iTALiAN film")
+    self.moviesRepository.alreadyNotified.assert_called_once_with()
+    self.notifier.send.assert_called_once_with("Titolo del nuovo iTALiAN film")
     self.moviesRepository.add.assert_called_once_with(Movie("Titolo del nuovo iTALiAN film"))
 
   def test_notifyNewFilmWithFullRepository(self):
@@ -43,7 +43,7 @@ class MoviesNotifierTest(UnitTestBase):
     self.moviesSearch.toUrl.assert_called_once_with()
     self.moviesRepository.alreadyNotified.assert_called_once_with()
     self.htmlRetriever.get.assert_called_once_with(self.searchUrl)
-    self.ifNotifier.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
+    self.notifier.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
     self.moviesRepository.add.assert_called_once_with(Movie("Nuovo iTALiAN film non notificato"))
 
   def test_noNotificationWithNoNewFilms(self):
@@ -60,13 +60,14 @@ class MoviesNotifierTest(UnitTestBase):
     self.moviesSearch.toUrl.assert_called_once_with()
     self.moviesRepository.alreadyNotified.assert_called_once_with()
     self.htmlRetriever.get.assert_called_once_with(self.searchUrl)
-    self.ifNotifier.send.assert_not_called()
+    self.notifier.send.assert_not_called()
     self.moviesRepository.add.assert_not_called()
 
   
   def __setupMocks(self, htmlMockFile, alreadyNotifiedMovies):
-    self.htmlRetriever.get = MagicMock(return_value=self._read_file(htmlMockFile))
+    self.fakeRetrievedHtml = self._read_file(htmlMockFile)
+    self.htmlRetriever.get = MagicMock(return_value=self.fakeRetrievedHtml)
     self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotifiedMovies)
-    self.ifNotifier.send = MagicMock()
+    self.notifier.send = MagicMock()
     self.moviesRepository.add = MagicMock()
     self.moviesSearch.toUrl.return_value = self.searchUrl
