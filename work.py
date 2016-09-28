@@ -16,16 +16,9 @@ notificationListeners = NotificationListenerList([
   PrintNotificationListener()
 ])
 
-moviesSearch = KatSearch()                \
-  .include("italian")                     \
-  .exclude("md cam telesync ts screener") \
-  .inCategory("movies")                   \
-  .withMinSeeds(200)                      \
-  .orderBy("time_add", "desc")
-
-dbPath = absolutePathFromRelative('production.db')
-moviesRepository = SqlLiteMovieRepository(dbPath)
-htmlRetriever = UrlLibHtmlRetriever()
-
-moviesNotifier = MoviesNotifier(moviesRepository, notificationListeners, htmlRetriever, moviesSearch)
+moviesNotifier = MoviesNotifier(
+  SqlLiteMovieRepository(absolutePathFromRelative('production.db')),
+  CorsaroNeroPageFactory(UrlLibHtmlRetriever()), # WIP
+  notificationListeners
+)
 moviesNotifier.work()

@@ -2,20 +2,15 @@ from . import KatPage
 
 class MoviesNotifier:
   
-  def __init__(self, moviesRepository, notificationListener, htmlRetriever, moviesSearch):
-    self.notificationListener = notificationListener
+  def __init__(self, moviesRepository, webpageFactory, notificationListener):
     self.moviesRepository = moviesRepository
-    self.htmlRetriever = htmlRetriever
-    self.moviesSearch = moviesSearch
+    self.webpageFactory = webpageFactory
+    self.notificationListener = notificationListener
     return
   
   def work(self):
-    searchUrl = self.moviesSearch.toUrl()
-    html = self.htmlRetriever.get(searchUrl)
-
-    page = KatPage(html)
-
-    actual = page.movies()
+    webpage = self.webpageFactory.build()
+    actual = webpage.movies()
     alreadyNotified = self.moviesRepository.alreadyNotified()
     toNotify = set(actual) - set(alreadyNotified)
 
@@ -24,4 +19,3 @@ class MoviesNotifier:
       self.moviesRepository.add(movie)
 
     return
-

@@ -1,5 +1,5 @@
-#FROM ubuntu:latest
-FROM resin/rpi-raspbian
+FROM ubuntu:latest
+#FROM resin/rpi-raspbian
 
 RUN apt-get update && \
     apt-get install -y \
