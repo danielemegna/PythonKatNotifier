@@ -1,22 +1,11 @@
 class Movie:
 
-  @classmethod
-  def tags_to_array(self, tags):
-    return map(self.from_tag, tags)
-
-  @classmethod
-  def from_tag(self, tag):
-    if(tag.strong):
-      tag.strong.unwrap()
-
-    title = ''.join(tag.contents).encode('ascii', 'ignore')
-    return self(title)
-
-  def __init__(self, title):
+  def __init__(self, title, seeds=0):
     self.title = title
+    self.seeds = seeds
 
   def __hash__(self):
-    return hash(self.title)
+    return hash(self.title) + hash(self.seeds)
 
   def __eq__(self, other):
-    return self.title == other.title
+    return self.title == other.title and self.seeds == other.seeds
