@@ -22,5 +22,6 @@ class CorsaroneroWebpageTest(UnitTestBase):
     movies = self.page.movies()
     self.assertEqual(movies[0].seeds, 53)
     self.assertEqual(movies[1].seeds, 79)
+    self.assertEqual(movies[15].seeds, 0)
     self.assertEqual(movies[20].seeds, 31)
     self.assertEqual(movies[39].seeds, 53)

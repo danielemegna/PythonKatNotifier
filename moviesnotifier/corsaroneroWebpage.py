@@ -17,8 +17,12 @@ class CorsaroneroWebpage:
     title = row("td:nth-child(2) a").text()
     seeds = row("td:nth-child(6) font").text()
     
-    return Movie(title, int(seeds))
-
+    try:
+      intSeeds = int(seeds)
+    except ValueError:
+      intSeeds = 0
+    
+    return Movie(title, intSeeds)
 
 class CorsaroneroWebpageFactory:
 
