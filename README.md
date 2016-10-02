@@ -45,7 +45,11 @@ $ docker build -t "pykat" .
 ```
 and run it with
 ```
-docker run -v $(pwd):/app --name pykat pykat 
+$ docker run -v $(pwd):/app --name pykat pykat 
+```
+or interative mode with
+```
+$ docker run -itv $(pwd):/app --name pykat pykat bash
 ```
 
 ### Tests
@@ -60,6 +64,7 @@ $ ./runtest
 ```
 Remember to install the dev dependecies with
 ```
+$ pip install -r dependencies.prod
 $ pip install -r dependencies.dev
 ```
 The runtest script is compiliant with unittest test selectors:
