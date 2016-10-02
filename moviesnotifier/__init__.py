@@ -1,5 +1,5 @@
 from movie import Movie
-from webpage import Webpage
+from corsaroneroWebpage import (CorsaroneroWebpage, CorsaroneroWebpageFactory)
 from katSearch import KatSearch
 from moviesNotifier import MoviesNotifier
 from notificationListener import NotificationListener

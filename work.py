@@ -2,7 +2,8 @@ import os
 
 from moviesnotifier import (
   MoviesNotifier, SqlLiteMovieRepository, UrlLibHtmlRetriever,
-  PrintNotificationListener, IFNotifier, NotificationListenerList, KatSearch
+  PrintNotificationListener, IFNotifier, NotificationListenerList,
+  CorsaroneroWebpageFactory
 )
 
 def absolutePathFromRelative(relative):
@@ -18,7 +19,7 @@ notificationListeners = NotificationListenerList([
 
 moviesNotifier = MoviesNotifier(
   SqlLiteMovieRepository(absolutePathFromRelative('production.db')),
-  CorsaroNeroPageFactory(UrlLibHtmlRetriever()), # WIP
+  CorsaroneroWebpageFactory(UrlLibHtmlRetriever()), # WIP
   notificationListeners
 )
 moviesNotifier.work()

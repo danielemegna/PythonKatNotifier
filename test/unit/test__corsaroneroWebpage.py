@@ -1,11 +1,11 @@
 from . import UnitTestBase
-from moviesnotifier import Webpage
+from moviesnotifier import CorsaroneroWebpage
 
-class WebpageTest(UnitTestBase):
+class CorsaroneroWebpageTest(UnitTestBase):
 
   def setUp(self):
     html = self._read_file('corsaronero_example1.html')
-    self.page = Webpage(html)
+    self.page = CorsaroneroWebpage(html)
 
   def test_recognizeCorrectlyNumberOfMovies(self):
     movies = self.page.movies()
