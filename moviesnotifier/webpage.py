@@ -1,19 +1,20 @@
-from bs4 import BeautifulSoup
+from pyquery import PyQuery as pq
 from . import Movie
 
 class Webpage:
 
   def __init__(self, html):
-    self.soup = BeautifulSoup(html, 'html.parser')
+    self.html = pq(html)
     return
 
   def movies(self):
-    tags = self.soup.select("a.tab")
-    return map(self.__from_tag, tags)
+    rows = self.html("tr.odd, tr.odd2")
+    return map(self.__from_row, rows)
 
-  def __from_tag(self, tag):
-    if(tag.strong):
-      tag.strong.unwrap()
+  def __from_row(self, row):
+    row = pq(row)
 
-    title = ''.join(tag.contents).encode('ascii', 'ignore')
-    return Movie(title)
+    title = row("td:nth-child(2) a").text()
+    seeds = row("td:nth-child(6) font").text()
+    
+    return Movie(title, int(seeds))

@@ -1,5 +1,3 @@
-from . import KatPage
-
 class MoviesNotifier:
   
   def __init__(self, moviesRepository, webpageFactory, notificationListener):
