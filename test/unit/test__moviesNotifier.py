@@ -19,7 +19,7 @@ class MoviesNotifierTest(UnitTestBase):
 
   def test_notifyNewFilmWithEmptyRepository(self):
     alreadyNotifiedMovies = []
-    moviesFromWebpage = [Movie("Titolo del nuovo iTALiAN film")]
+    moviesFromWebpage = [Movie("Titolo del nuovo iTALiAN film", 44)]
     self.__setupMocks(moviesFromWebpage, alreadyNotifiedMovies)
 
     self.moviesNotifier.work()
@@ -34,8 +34,8 @@ class MoviesNotifierTest(UnitTestBase):
       Movie("Film notificato non piu presente nella pagina")
     ]
     moviesFromWebpage = [
-      Movie("Film gia notificato"),
-      Movie("Nuovo iTALiAN film non notificato")
+      Movie("Film gia notificato", 66),
+      Movie("Nuovo iTALiAN film non notificato", 40)
     ]
     self.__setupMocks(moviesFromWebpage, alreadyNotifiedMovies)
 
@@ -43,7 +43,7 @@ class MoviesNotifierTest(UnitTestBase):
 
     self.moviesRepository.alreadyNotified.assert_called_once_with()
     self.notificationListener.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
-    self.moviesRepository.add.assert_called_once_with(Movie("Nuovo iTALiAN film non notificato"))
+    self.moviesRepository.add.assert_called_once_with(Movie("Nuovo iTALiAN film non notificato", 40))
 
   def test_noNotificationWithNoNewFilms(self):
     alreadyNotifiedMovies = [
@@ -52,8 +52,8 @@ class MoviesNotifierTest(UnitTestBase):
       Movie("Nuovo iTALiAN film non notificato")
     ]
     moviesFromWebpage = [
-      Movie("Film gia notificato"),
-      Movie("Nuovo iTALiAN film non notificato")
+      Movie("Film gia notificato", 430),
+      Movie("Nuovo iTALiAN film non notificato", 134)
     ]
 
     self.__setupMocks(moviesFromWebpage, alreadyNotifiedMovies)

@@ -11,9 +11,9 @@ class MovieTest(UnitTestBase):
 
     self.assertEquals(m1, m1)
     self.assertEquals(m1, m3)
+    self.assertEquals(m2, m4)
     self.assertNotEquals(m1, m2)
     self.assertNotEquals(m2, m3)
-    self.assertNotEquals(m2, m4)
 
   def test_equalityViaEqualSign(self):
     m1 = Movie("Primo film", 42)
@@ -23,6 +23,6 @@ class MovieTest(UnitTestBase):
 
     self.assertTrue(m1 == m1)
     self.assertTrue(m1 == m3)
+    self.assertTrue(m2 == m4)
     self.assertFalse(m1 == m2)
     self.assertFalse(m2 == m3)
-    self.assertFalse(m2 == m4)
