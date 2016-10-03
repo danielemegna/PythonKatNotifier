@@ -13,13 +13,13 @@ def absolutePathFromRelative(relative):
 ################################### BEGIN
 
 notificationListeners = NotificationListenerList([
-  #IFNotifier(),
+  IFNotifier(),
   PrintNotificationListener()
 ])
 
 moviesNotifier = MoviesNotifier(
   SqlLiteMovieRepository(absolutePathFromRelative('production.db')),
-  CorsaroneroWebpageFactory(UrlLibHtmlRetriever()), # WIP
+  CorsaroneroWebpageFactory(UrlLibHtmlRetriever()),
   notificationListeners
 )
 moviesNotifier.work()

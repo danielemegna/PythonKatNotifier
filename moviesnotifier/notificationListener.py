@@ -15,4 +15,4 @@ class NotificationListenerList(NotificationListener):
 class PrintNotificationListener(NotificationListener):
 
   def send(self, message):
-    print "Notify:\t\t[" + message + "]"
+    print "Notify:\t\t[" + message.encode('utf-8') + "]"
