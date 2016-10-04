@@ -8,8 +8,8 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 
 WORKDIR /tmp
-COPY dependencies.prod .
-RUN pip install -r dependencies.prod
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 WORKDIR /app
 CMD ["python", "work.py"]

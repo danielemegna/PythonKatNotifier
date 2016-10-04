@@ -22,7 +22,7 @@ $ source venv/bin/activate
 ```
 Install project dependencies into the new virtual environment:
 ```
-$ pip install -r dependencies.prod
+$ pip install -r requirements.txt
 ```
 You'll be able to deactivate the virtual environment using
 ```
@@ -64,8 +64,8 @@ $ ./runtest
 ```
 Remember to install the dev dependecies with
 ```
-$ pip install -r dependencies.prod
-$ pip install -r dependencies.dev
+$ pip install -r requirements.txt
+$ pip install -r requirements.dev
 ```
 The runtest script is compiliant with unittest test selectors:
 ```bash
