@@ -9,6 +9,6 @@ class NotificationPolicyList(NotificationPolicy):
     self.policies = policies
 
   def isInteresting(self, movie):
-    pass
+    raise NotImplementedError("Not yet implemented!")
     #for p in self.policies:
 
