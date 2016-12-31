@@ -13,7 +13,7 @@ def absolutePathFromRelative(relative):
 ################################### BEGIN
 
 notificationListeners = NotificationListenerList([
-  #IFNotifier(),
+  IFNotifier(),
   PrintNotificationListener()
 ])
 
