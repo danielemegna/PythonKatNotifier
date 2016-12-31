@@ -1,6 +1,6 @@
 # PythonKatNotifier
 
-PythonKatNotifier looks for you for the most downloaded movies on Kat and notify you about them
+PythonKatNotifier looks for you for the most downloaded movies on torrents sites and notify you about them
 
 ### pip & virtualenv
 
@@ -31,11 +31,14 @@ $ deactivate
 
 ### Run it
 
-Configure it managing dependecies injections into work.py and run it via
+Remember to prepare a ready compatible sqlite file before (*production.db* by default)
+```
+$ cp empty.db production.db
+```
+Now configure it managing dependecies injections into work.py and run it via
 ```
 $ python work.py
 ```
-Remember to prepare a ready compatible sqlite file before (*production.db* by default)
 
 ### Docker way
 
@@ -45,7 +48,7 @@ $ docker build -t "pykat" .
 ```
 and run it with
 ```
-$ docker run -v $(pwd):/app --name pykat pykat 
+$ docker run --name pykat pykat 
 ```
 or interative mode with
 ```
