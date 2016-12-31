@@ -11,3 +11,4 @@ from movieRepository import PrintMovieRepository
 from htmlRetriever import HtmlRetriever
 from htmlRetriever import UrlLibHtmlRetriever
 from sqlLiteMovieRepository import SqlLiteMovieRepository
+from notificationPolicy import NotificationPolicy
