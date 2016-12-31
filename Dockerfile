@@ -1,5 +1,4 @@
 FROM ubuntu:latest
-#FROM resin/rpi-raspbian
 
 RUN apt-get update && \
     apt-get install -y \
@@ -7,9 +6,8 @@ RUN apt-get update && \
       python-pip
 RUN pip install --upgrade pip
 
-WORKDIR /tmp
-COPY requirements.txt .
+WORKDIR /app
+COPY . .
 RUN pip install -r requirements.txt
 
-WORKDIR /app
 CMD ["python", "work.py"]
