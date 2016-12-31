@@ -25,45 +25,46 @@ class MoviesNotifierTest(UnitTestBase):
     )
 
   def test_notifyNewFilmWithEmptyRepository(self):
+    movie = Movie("Titolo del nuovo iTALiAN film", 44)
     alreadyNotifiedMovies = []
-    moviesFromWebpage = [Movie("Titolo del nuovo iTALiAN film", 44)]
+    moviesFromWebpage = [movie]
     self.__setupMocks(moviesFromWebpage, alreadyNotifiedMovies)
 
     self.moviesNotifier.work()
 
     self.moviesRepository.alreadyNotified.assert_called_once_with()
-    self.notificationPolicy.isInteresting.assert_called_once_with(moviesFromWebpage[0])
-    self.notificationListener.send.assert_called_once_with("Titolo del nuovo iTALiAN film")
-    self.moviesRepository.add.assert_called_once_with(Movie("Titolo del nuovo iTALiAN film"))
+    self.notificationPolicy.isInteresting.assert_called_once_with(movie)
+    self.notificationListener.send.assert_called_once_with(movie.title)
+    self.moviesRepository.add.assert_called_once_with(movie)
 
   def test_notifyNewFilmWithFullRepository(self):
+    newMovieToBeNotified = Movie("Nuovo iTALiAN film non notificato", 40)
     alreadyNotifiedMovies = [
       Movie("Film gia notificato"),
       Movie("Film notificato non piu presente nella pagina")
     ]
     moviesFromWebpage = [
       Movie("Film gia notificato", 66),
-      Movie("Nuovo iTALiAN film non notificato", 40)
+      newMovieToBeNotified
     ]
     self.__setupMocks(moviesFromWebpage, alreadyNotifiedMovies)
 
     self.moviesNotifier.work()
 
     self.moviesRepository.alreadyNotified.assert_called_once_with()
-    self.notificationListener.send.assert_called_once_with("Nuovo iTALiAN film non notificato")
-    self.moviesRepository.add.assert_called_once_with(Movie("Nuovo iTALiAN film non notificato", 40))
+    self.notificationListener.send.assert_called_once_with(newMovieToBeNotified.title)
+    self.moviesRepository.add.assert_called_once_with(newMovieToBeNotified)
 
   def test_noNotificationWithNoNewFilms(self):
     alreadyNotifiedMovies = [
       Movie("Film gia notificato"),
       Movie("Film notificato non piu presente nella pagina"),
-      Movie("Nuovo iTALiAN film non notificato")
+      Movie("Film iTALiAN gia notificato")
     ]
     moviesFromWebpage = [
       Movie("Film gia notificato", 430),
-      Movie("Nuovo iTALiAN film non notificato", 134)
+      Movie("Film iTALiAN gia notificato", 134)
     ]
-
     self.__setupMocks(moviesFromWebpage, alreadyNotifiedMovies)
 
     self.moviesNotifier.work()
