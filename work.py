@@ -17,7 +17,7 @@ notificationListeners = NotificationListenerList([
   PrintNotificationListener()
 ])
 
-notificationPolicy = MinSeedPolicy(200)
+notificationPolicy = MinSeedPolicy(500)
 
 moviesNotifier = MoviesNotifier(
   SqlLiteMovieRepository(absolutePathFromRelative('production.db')),
