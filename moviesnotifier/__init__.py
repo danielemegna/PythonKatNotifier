@@ -1,5 +1,6 @@
 from movie import Movie
 from corsaroneroWebpage import (CorsaroneroWebpage, CorsaroneroWebpageFactory)
+from tntvillageWebpage import (TntvillageWebpage, TntvillageWebpageFactory)
 from katSearch import KatSearch
 from moviesNotifier import MoviesNotifier
 from notificationListener import NotificationListener
