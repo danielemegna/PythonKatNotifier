@@ -1,2 +1,3 @@
 from test__sqlLiteMovieRepository import SqlLiteMovieRepositoryTest
-#from test__tntvillageWebpage import TntvillageWebpageTest
+from test__tntvillageWebpage import TntvillageWebpageTest
+from test__corsaroneroWebpage import CorsaroneroWebpageTest
