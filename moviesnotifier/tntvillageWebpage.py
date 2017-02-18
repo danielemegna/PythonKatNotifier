@@ -8,21 +8,15 @@ class TntvillageWebpage:
     return
 
   def movies(self):
-    rows = self.html("tr.odd, tr.odd2")
+    rows = self.html("channel item")
     return map(self.__from_row, rows)
 
   def __from_row(self, row):
     row = pq(row)
 
-    title = row("td:nth-child(2) a").text()
-    seeds = row("td:nth-child(6) font").text()
+    title = row("title").text()
     
-    try:
-      intSeeds = int(seeds)
-    except ValueError:
-      intSeeds = 0
-    
-    return Movie(title, intSeeds)
+    return Movie(title, 1)
 
 class TntvillageWebpageFactory:
 
@@ -31,5 +25,5 @@ class TntvillageWebpageFactory:
     return
 
   def build(self):
-    html = self.htmlRetriever.get("....")
+    html = self.htmlRetriever.get("http://www.tntvillage.scambioetico.org/rss.php?c=0&p=20")
     return TntvillageWebpage(html)
