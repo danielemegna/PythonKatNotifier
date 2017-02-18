@@ -1,10 +1,10 @@
 class MoviesNotifier:
   
-  def __init__(self, moviesRepository, webpageFactory, notificationListener, notificationPolicy):
+  def __init__(self, moviesRepository, webpageFactory, notificationListener, movieFilterPolicy):
     self.moviesRepository = moviesRepository
     self.webpageFactory = webpageFactory
     self.notificationListener = notificationListener
-    self.notificationPolicy = notificationPolicy
+    self.movieFilterPolicy = movieFilterPolicy
     return
   
   def work(self):
@@ -13,7 +13,7 @@ class MoviesNotifier:
     alreadyNotified = self.moviesRepository.alreadyNotified()
 
     newMovies = set(actual) - set(alreadyNotified)
-    interestingMovies = [m for m in newMovies if self.notificationPolicy.isInteresting(m)]
+    interestingMovies = [m for m in newMovies if self.movieFilterPolicy.isInteresting(m)]
 
     for movie in interestingMovies:
       self.notificationListener.send(movie.title)

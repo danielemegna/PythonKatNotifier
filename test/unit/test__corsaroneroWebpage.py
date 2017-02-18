@@ -31,8 +31,8 @@ class CorsaroneroWebpageTest(UnitTestBase):
     movies = self.page.movies(policy)
     self.assertEqual(len(movies), 20)
 
-from moviesnotifier import NotificationPolicy
-class ExamplePolicy(NotificationPolicy):
+from moviesnotifier import MovieFilterPolicy
+class ExamplePolicy(MovieFilterPolicy):
   def filter(self, movies):
     return [m for m in movies if self.isInteresting(m)]
   def isInteresting(self, movie):

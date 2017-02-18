@@ -3,7 +3,7 @@ from mock import MagicMock
 
 from moviesnotifier import (
   MoviesNotifier, NotificationListener,
-  NotificationPolicy, MovieRepository,
+  MovieFilterPolicy, MovieRepository,
   HtmlRetriever, Movie
 )
 
@@ -14,14 +14,14 @@ class MoviesNotifierTest(UnitTestBase):
   def setUp(self):
     self.moviesRepository = MovieRepository()
     self.notificationListener = NotificationListener()
-    self.notificationPolicy = NotificationPolicy()
+    self.movieFilterPolicy = MovieFilterPolicy()
     self.webpageFactory = MagicMock()
     self.webpage = MagicMock()
     self.moviesNotifier = MoviesNotifier(
       self.moviesRepository,
       self.webpageFactory,
       self.notificationListener,
-      self.notificationPolicy
+      self.movieFilterPolicy
     )
 
   def test_notifyNewFilmWithEmptyRepository(self):
@@ -33,7 +33,7 @@ class MoviesNotifierTest(UnitTestBase):
     self.moviesNotifier.work()
 
     self.moviesRepository.alreadyNotified.assert_called_once_with()
-    self.notificationPolicy.isInteresting.assert_called_once_with(movie)
+    self.movieFilterPolicy.isInteresting.assert_called_once_with(movie)
     self.notificationListener.send.assert_called_once_with(movie.title)
     self.moviesRepository.add.assert_called_once_with(movie)
 
@@ -76,7 +76,7 @@ class MoviesNotifierTest(UnitTestBase):
   
   def __setupMocks(self, moviesFromWebpage, alreadyNotifiedMovies):
     self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotifiedMovies)
-    self.notificationPolicy.isInteresting = MagicMock(return_value=True)
+    self.movieFilterPolicy.isInteresting = MagicMock(return_value=True)
     self.notificationListener.send = MagicMock()
     self.moviesRepository.add = MagicMock()
     self.webpage.movies = MagicMock(return_value=moviesFromWebpage)

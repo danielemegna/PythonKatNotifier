@@ -17,11 +17,11 @@ notificationListeners = NotificationListenerList([
   PrintNotificationListener()
 ])
 
-notificationPolicy = MinSeedPolicy(500)
+movieFilterPolicy = MinSeedPolicy(500)
 
 moviesNotifier = MoviesNotifier(
   SqlLiteMovieRepository(absolutePathFromRelative('production.db')),
   CorsaroneroWebpageFactory(UrlLibHtmlRetriever()),
-  notificationListeners, notificationPolicy
+  notificationListeners, movieFilterPolicy
 )
 moviesNotifier.work()

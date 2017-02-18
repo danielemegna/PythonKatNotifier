@@ -1,11 +1,11 @@
-class NotificationPolicy:
+class MovieFilterPolicy:
 
   def isInteresting(self, movie):
     raise NotImplementedError("You're calling an abstract class!")
   def filter(self, movie):
     raise NotImplementedError("You're calling an abstract class!")
 
-class NotificationPolicyList(NotificationPolicy):
+class MovieFilterPolicyList(MovieFilterPolicy):
 
   def __init__(self, policies):
     self.policies = policies

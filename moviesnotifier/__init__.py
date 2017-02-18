@@ -12,5 +12,5 @@ from movieRepository import PrintMovieRepository
 from htmlRetriever import HtmlRetriever
 from htmlRetriever import UrlLibHtmlRetriever
 from sqlLiteMovieRepository import SqlLiteMovieRepository
-from notificationPolicy import NotificationPolicy
+from movieFilterPolicy import MovieFilterPolicy
 from minSeedPolicy import MinSeedPolicy

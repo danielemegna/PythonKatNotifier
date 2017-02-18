@@ -1,6 +1,6 @@
-from . import NotificationPolicy
+from . import MovieFilterPolicy
 
-class MinSeedPolicy(NotificationPolicy):
+class MinSeedPolicy(MovieFilterPolicy):
 
   def __init__(self, minSeedValue):
     self.minSeedValue = minSeedValue
