@@ -33,5 +33,7 @@ class CorsaroneroWebpageTest(UnitTestBase):
 
 from moviesnotifier import NotificationPolicy
 class ExamplePolicy(NotificationPolicy):
+  def filter(self, movies):
+    return [m for m in movies if self.isInteresting(m)]
   def isInteresting(self, movie):
     return movie.seeds >= 42

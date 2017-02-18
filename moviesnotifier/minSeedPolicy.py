@@ -7,3 +7,6 @@ class MinSeedPolicy(NotificationPolicy):
   
   def isInteresting(self, movie):
     return movie.seeds >= self.minSeedValue
+
+  def filter(self, movie):
+    raise NotImplementedError("Not yet implemented!")
