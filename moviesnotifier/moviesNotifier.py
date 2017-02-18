@@ -9,13 +9,11 @@ class MoviesNotifier:
   
   def work(self):
     webpage = self.webpageFactory.build()
-    actual = webpage.movies()
+    actual = webpage.movies(self.movieFilterPolicy)
     alreadyNotified = self.moviesRepository.alreadyNotified()
-
     newMovies = set(actual) - set(alreadyNotified)
-    interestingMovies = [m for m in newMovies if self.movieFilterPolicy.isInteresting(m)]
 
-    for movie in interestingMovies:
+    for movie in newMovies:
       self.notificationListener.send(movie.title)
       self.moviesRepository.add(movie)
 

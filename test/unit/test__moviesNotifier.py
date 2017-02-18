@@ -24,6 +24,11 @@ class MoviesNotifierTest(UnitTestBase):
       self.movieFilterPolicy
     )
 
+  def tearDown(self):
+    self.webpageFactory.build.assert_called_once_with()
+    self.webpage.movies.assert_called_once_with(self.movieFilterPolicy)
+    self.moviesRepository.alreadyNotified.assert_called_once_with()
+
   def test_notifyNewFilmWithEmptyRepository(self):
     movie = Movie("Titolo del nuovo iTALiAN film", 44)
     alreadyNotifiedMovies = []
@@ -32,8 +37,6 @@ class MoviesNotifierTest(UnitTestBase):
 
     self.moviesNotifier.work()
 
-    self.moviesRepository.alreadyNotified.assert_called_once_with()
-    self.movieFilterPolicy.isInteresting.assert_called_once_with(movie)
     self.notificationListener.send.assert_called_once_with(movie.title)
     self.moviesRepository.add.assert_called_once_with(movie)
 
@@ -51,7 +54,6 @@ class MoviesNotifierTest(UnitTestBase):
 
     self.moviesNotifier.work()
 
-    self.moviesRepository.alreadyNotified.assert_called_once_with()
     self.notificationListener.send.assert_called_once_with(newMovieToBeNotified.title)
     self.moviesRepository.add.assert_called_once_with(newMovieToBeNotified)
 
@@ -69,14 +71,12 @@ class MoviesNotifierTest(UnitTestBase):
 
     self.moviesNotifier.work()
 
-    self.moviesRepository.alreadyNotified.assert_called_once_with()
     self.notificationListener.send.assert_not_called()
     self.moviesRepository.add.assert_not_called()
 
   
   def __setupMocks(self, moviesFromWebpage, alreadyNotifiedMovies):
     self.moviesRepository.alreadyNotified = MagicMock(return_value=alreadyNotifiedMovies)
-    self.movieFilterPolicy.isInteresting = MagicMock(return_value=True)
     self.notificationListener.send = MagicMock()
     self.moviesRepository.add = MagicMock()
     self.webpage.movies = MagicMock(return_value=moviesFromWebpage)
