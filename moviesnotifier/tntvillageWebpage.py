@@ -1,21 +1,15 @@
 from pyquery import PyQuery as pq
 from . import Movie
+from . import Webpage
 
-class TntvillageWebpage:
+class TntvillageWebpage(Webpage):
 
-  def __init__(self, html):
-    self.html = pq(html)
-    return
+  def _rowsCssRule(self):
+    return "channel item"
 
-  def movies(self):
-    rows = self.html("channel item")
-    return map(self.__from_row, rows)
-
-  def __from_row(self, row):
+  def _from_row(self, row):
     row = pq(row)
-
     title = row("title").text()
-    
     return Movie(title, 1)
 
 class TntvillageWebpageFactory:

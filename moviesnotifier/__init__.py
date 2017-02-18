@@ -1,4 +1,5 @@
 from movie import Movie
+from webpage import Webpage
 from corsaroneroWebpage import (CorsaroneroWebpage, CorsaroneroWebpageFactory)
 from tntvillageWebpage import (TntvillageWebpage, TntvillageWebpageFactory)
 from katSearch import KatSearch
