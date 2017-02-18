@@ -15,3 +15,4 @@ from htmlRetriever import UrlLibHtmlRetriever
 from sqlLiteMovieRepository import SqlLiteMovieRepository
 from movieFilterPolicy import MovieFilterPolicy
 from minSeedPolicy import MinSeedPolicy
+from keywordPolicy import KeywordPolicy
