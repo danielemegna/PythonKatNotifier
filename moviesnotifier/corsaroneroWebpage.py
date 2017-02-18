@@ -7,9 +7,17 @@ class CorsaroneroWebpage:
     self.html = pq(html)
     return
 
-  def movies(self):
+  def movies(self, filterPolicy = None):
     rows = self.html("tr.odd, tr.odd2")
-    return map(self.__from_row, rows)
+    movies = map(self.__from_row, rows)
+    return self.__filter_with_policy(movies, filterPolicy)
+
+  def __filter_with_policy(self, movies, policy):
+    if(policy is None):
+      return movies
+
+    return [m for m in movies if policy.isInteresting(m)]
+    
 
   def __from_row(self, row):
     row = pq(row)

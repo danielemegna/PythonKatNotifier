@@ -25,3 +25,13 @@ class CorsaroneroWebpageTest(UnitTestBase):
     self.assertEqual(movies[15].seeds, 0)
     self.assertEqual(movies[20].seeds, 31)
     self.assertEqual(movies[39].seeds, 53)
+
+  def test_correctlyAppliesFilterPolicy(self):
+    policy = ExamplePolicy()
+    movies = self.page.movies(policy)
+    self.assertEqual(len(movies), 20)
+
+from moviesnotifier import NotificationPolicy
+class ExamplePolicy(NotificationPolicy):
+  def isInteresting(self, movie):
+    return movie.seeds >= 42
