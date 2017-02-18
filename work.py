@@ -3,7 +3,8 @@ import os
 from moviesnotifier import (
   MoviesNotifier, SqlLiteMovieRepository, UrlLibHtmlRetriever,
   PrintNotificationListener, IFNotifier, NotificationListenerList,
-  CorsaroneroWebpageFactory, MinSeedPolicy
+  CorsaroneroWebpageFactory, TntvillageWebpageFactory,
+  MinSeedPolicy, KeywordPolicy
 )
 
 def absolutePathFromRelative(relative):
@@ -12,16 +13,20 @@ def absolutePathFromRelative(relative):
 
 ################################### BEGIN
 
+db = SqlLiteMovieRepository(absolutePathFromRelative('production.db'))
+htmlRetriever = UrlLibHtmlRetriever()
+
 notificationListeners = NotificationListenerList([
   IFNotifier(),
   PrintNotificationListener()
 ])
 
-movieFilterPolicy = MinSeedPolicy(500)
+MoviesNotifier(
+  db, CorsaroneroWebpageFactory(htmlRetriever),
+  notificationListeners, MinSeedPolicy(500)
+).work()
 
-moviesNotifier = MoviesNotifier(
-  SqlLiteMovieRepository(absolutePathFromRelative('production.db')),
-  CorsaroneroWebpageFactory(UrlLibHtmlRetriever()),
-  notificationListeners, movieFilterPolicy
-)
-moviesNotifier.work()
+MoviesNotifier(
+  db, TntvillageWebpageFactory(htmlRetriever),
+  notificationListeners, KeywordPolicy("masterchef")
+).work()
