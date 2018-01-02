@@ -14,7 +14,7 @@ class MoviesNotifier:
     newMovies = set(actual) - set(alreadyNotified)
 
     for movie in newMovies:
-      self.notificationListener.send(movie.title)
+      self.notificationListener.send(movie.title + " (" + str(movie.seeds) + " seeds)")
       self.moviesRepository.add(movie)
 
     return

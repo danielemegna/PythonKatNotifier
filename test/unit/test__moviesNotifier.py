@@ -37,7 +37,7 @@ class MoviesNotifierTest(UnitTestBase):
 
     self.moviesNotifier.work()
 
-    self.notificationListener.send.assert_called_once_with(movie.title)
+    self.notificationListener.send.assert_called_once_with("Titolo del nuovo iTALiAN film (44 seeds)")
     self.moviesRepository.add.assert_called_once_with(movie)
 
   def test_notifyNewFilmWithFullRepository(self):
@@ -54,7 +54,7 @@ class MoviesNotifierTest(UnitTestBase):
 
     self.moviesNotifier.work()
 
-    self.notificationListener.send.assert_called_once_with(newMovieToBeNotified.title)
+    self.notificationListener.send.assert_called_once_with("Nuovo iTALiAN film non notificato (40 seeds)")
     self.moviesRepository.add.assert_called_once_with(newMovieToBeNotified)
 
   def test_noNotificationWithNoNewFilms(self):
