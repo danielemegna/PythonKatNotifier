@@ -26,7 +26,7 @@ MoviesNotifier(
   notificationListeners, MinSeedPolicy(500)
 ).work()
 
-MoviesNotifier(
-  db, TntvillageWebpageFactory(htmlRetriever),
-  notificationListeners, KeywordPolicy("masterchef")
-).work()
+#MoviesNotifier(
+#  db, TntvillageWebpageFactory(htmlRetriever),
+#  notificationListeners, KeywordPolicy("masterchef")
+#).work()
