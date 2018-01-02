@@ -23,7 +23,7 @@ notificationListeners = NotificationListenerList([
 
 MoviesNotifier(
   db, CorsaroneroWebpageFactory(htmlRetriever),
-  notificationListeners, MinSeedPolicy(500)
+  notificationListeners, MinSeedPolicy(400)
 ).work()
 
 #MoviesNotifier(
