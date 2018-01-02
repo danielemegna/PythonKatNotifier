@@ -20,11 +20,19 @@ class TntvillageWebpage(Webpage):
     else: return 1
 
 class TntvillageWebpageFactory:
+  ANY_CATEGORY = '0'
+  TV_SERIES_CATEGORY = '1'
+  MUSIC_CATEGORY = '2'
+  EBOOKS_CATEGORY = '2'
+  FILM_CATEGORY = '4'
 
   def __init__(self, htmlRetriever):
     self.htmlRetriever = htmlRetriever
     return
 
   def build(self):
-    html = self.htmlRetriever.get("http://www.tntvillage.scambioetico.org/rss.php?c=0&p=20")
+    category = self.FILM_CATEGORY
+    resultCount = '20'
+    url = "http://www.tntvillage.scambioetico.org/rss.php?c=" + category + "&p=" + resultCount
+    html = self.htmlRetriever.get(url)
     return TntvillageWebpage(html)
