@@ -1,6 +1,6 @@
+import re
 from pyquery import PyQuery as pq
-from . import Movie
-from . import Webpage
+from . import Movie, Webpage
 
 class TntvillageWebpage(Webpage):
 
@@ -10,7 +10,14 @@ class TntvillageWebpage(Webpage):
   def _from_row(self, row):
     row = pq(row)
     title = row("title").text()
-    return Movie(title, 1)
+    seeders = self._seeders_from(row)
+    return Movie(title, seeders)
+
+  def _seeders_from(self, row):
+    description = row("description").text()
+    seedersSearch = re.search(r'Torrent Data: Seeders\<b\> ([0-9]+)', description)
+    if seedersSearch: return int(seedersSearch.group(1))
+    else: return 1
 
 class TntvillageWebpageFactory:
 
