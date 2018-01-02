@@ -9,4 +9,4 @@ class TntvillageWebpageTest(unittest.TestCase):
 
   def test_recognizeCorrectlyNumberOfMovies(self):
     movies = self.page.movies()
-    self.assertEqual(len(movies), 20)
+    self.assertEqual(len(movies), 40)

@@ -32,7 +32,7 @@ class TntvillageWebpageFactory:
 
   def build(self):
     category = self.FILM_CATEGORY
-    resultCount = '20'
+    resultCount = '40'
     url = "http://www.tntvillage.scambioetico.org/rss.php?c=" + category + "&p=" + resultCount
     html = self.htmlRetriever.get(url)
     return TntvillageWebpage(html)
