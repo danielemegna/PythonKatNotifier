@@ -26,5 +26,5 @@ class CorsaroneroWebpageFactory:
     return
 
   def build(self):
-    html = self.htmlRetriever.get("https://ilcorsaronero.unblockall.org/cat/1")
+    html = self.htmlRetriever.get("https://ilcorsaronero.link/cat/1")
     return CorsaroneroWebpage(html)
