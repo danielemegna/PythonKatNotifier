@@ -26,7 +26,7 @@ MoviesNotifier(
   notificationListeners, MinSeedPolicy(400)
 ).work()
 
-MoviesNotifier(
-  db, TntvillageWebpageFactory(htmlRetriever),
-  notificationListeners, MinSeedPolicy(150)
-).work()
+#MoviesNotifier(
+#  db, TntvillageWebpageFactory(htmlRetriever),
+#  notificationListeners, MinSeedPolicy(150)
+#).work()
